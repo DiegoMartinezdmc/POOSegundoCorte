@@ -7,72 +7,60 @@ import java.util.ArrayList;
 
 public class StudentDAO implements Operation {
 
+    private final ArrayList<Student> list = new ArrayList<>();
 
     @Override
     public void create(Object object) {
-        try{
+        try {
             Student student = (Student) object;
             list.add(student);
-        }catch(Exception e){
-            System.out.println( "Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
     @Override
     public ArrayList<Object> read() {
-        return null;
+        return new ArrayList<>(list);
     }
 
-    @Override
-    public ArrayList<Student> showList(){
+    // No @Override here since showList() is not in the Operation interface
+    public ArrayList<Student> showList() {
         return list;
     }
 
     @Override
     public void update(Object object) {
-        //Actualizar estudiante
         Student student = (Student) object;
 
-        for(Student Student : list){
-            if(Student.getCif().equals(student.getCif())){
-                Student.setNames(student.getNames());
-                Student.setLastNames(student.getLastNames());
-                Student.setEmail(student.getEmail());
-                Student.getPhone(student.getPhone());
+        for (Student est : list) {
+            if (est.getCif().equals(student.getCif())) {
+                est.setNames(student.getNames());
+                est.setLastNames(student.getLastNames());
+                est.setEmail(student.getEmail());
+                est.setPhone(student.getPhone());
                 return;
-
             }
-
         }
-
     }
 
     @Override
     public void delete(String id) {
-
-        for(Student student : list){
-            if (student.getCif().equals(id)){
-                showList().remove(student);
+        for (Student est : list) {
+            if (est.getCif().equals(id)) {
+                list.remove(est);
                 return;
             }
         }
-
     }
 
     @Override
     public Object search(String value) {
-        for(Student student : list){
-            if(student.getCif().equals(value)) || student.getNames().equals(value){
-                return student;
+        for (Student est : list) {
+            if (est.getCif().equals(value) || est.getNames().equals(value)) {
+                return est;
             }
         }
         return null;
     }
-
-    @Override
-    public Object search(String name) {
-        return null;
-    }
-
-
 }

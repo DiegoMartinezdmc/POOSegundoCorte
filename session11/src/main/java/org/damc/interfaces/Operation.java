@@ -13,8 +13,4 @@ public interface Operation {
     public void delete(String id);
 
     public Object search(String value);
-
-    public Object search(String name);
-
-
 }
